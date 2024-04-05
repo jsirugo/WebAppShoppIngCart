@@ -30,6 +30,7 @@ namespace WebsiteApp.Data
                 });
               
             }
+
             if (!database.Products.Any())
             {
                 database.Products.Add(new Product

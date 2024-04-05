@@ -1,6 +1,22 @@
 ﻿@page
 @model WebsiteApp.Pages.CartModel
 @{
-    <h1>Shoppopping</h1>
-    
+}
+<h1>Cart Items</h1>
+
+@if (Model.CartItems.Any())
+{
+    <ul>
+        @foreach (var item in Model.CartItems)
+        {
+            <li>
+                @item.Product.Name - Quantity: @item.Quantity - @item.Product.Price - total price: 
+            </li>
+        }
+    </ul>
+    <p>Total Price: @Model.TotalPrice kr</p>
+}
+else
+{
+    <p>Your cart is empty.</p>
 }

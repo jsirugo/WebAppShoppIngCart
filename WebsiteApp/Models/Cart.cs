@@ -1,12 +1,13 @@
-﻿namespace WebsiteApp.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebsiteApp.Models
 {
     public class Cart
     {
-        public int Id { get; set; } // Primary key for the cart
-
-        public int AccountId { get; set; } // Foreign key referencing the Account table
-        public Account Account { get; set; } // Navigation property for Account
-
-        public List<CartItem> CartItems { get; set; } // Collection of CartItem objects
+        public int Id { get; set; } // PK cart
+        
+        public int AccountId { get; set; } // FK account bord
+        public Account Account { get; set; } // Navigation property 
+        public List<CartItem> CartItems { get; set; } = new List<CartItem>(); // lista cartitems
     }
 }

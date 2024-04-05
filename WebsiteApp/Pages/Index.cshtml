@@ -6,3 +6,27 @@
 }
 
 <h1>Welcome, @accessControl.LoggedInAccountName!</h1>
+
+<ul> 
+
+    @if (Model.Products != null)
+    {
+        @foreach (var product in Model.Products)
+        {
+            <li>@product.Name - @product.Price</li>
+            <li>  <img src="images/@product.ImagePath" style="width: 200px" /></li>
+            <li>
+                <form method="post" asp-page-handler="AddItemToCart">
+                    <input type="hidden" name="ProductId" value="@product.ID" />
+                    <button type="submit">Add to cart</button>
+                </form>
+            </li>
+        }
+    }
+    else
+    {
+        <p>No products available.</p>
+    }
+
+</ul>
+
