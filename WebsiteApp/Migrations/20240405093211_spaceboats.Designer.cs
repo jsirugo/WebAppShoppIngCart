@@ -11,8 +11,8 @@ using WebsiteApp.Data;
 namespace WebsiteApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240403100057_2")]
-    partial class _2
+    [Migration("20240405093211_spaceboats")]
+    partial class spaceboats
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,17 +50,21 @@ namespace WebsiteApp.Migrations
 
             modelBuilder.Entity("WebsiteApp.Models.Product", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -71,7 +75,7 @@ namespace WebsiteApp.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.ToTable("Products");
                 });

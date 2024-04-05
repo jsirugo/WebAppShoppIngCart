@@ -28,9 +28,30 @@ namespace WebsiteApp.Data
                     OpenIDSubject = "3333333333",
                     Name = "Will"
                 });
+              
+            }
+            if (!database.Products.Any())
+            {
+                database.Products.Add(new Product
+                {
+                    Name = "Chad Volvo 240",
+                    Description = "Finaste bilen i Sverige",
+                    Price = 300,
+                    Category = "240 blazera däck",
+                    ImagePath = "volvo240.jpg"
+                });
+                database.Products.Add(new Product
+                {
+                    Name = "Virgin SAAB 900",
+                    Description = "Vänd effektivt ditt mående på ända när du ser volvon susa förbi",
+                    Price = 10,
+                    Category = "900 bränn humör",
+                    ImagePath = "saab900.jpg"
+                });
             }
 
-            database.SaveChanges();
+                database.SaveChanges();
         }
     }
 }
+
