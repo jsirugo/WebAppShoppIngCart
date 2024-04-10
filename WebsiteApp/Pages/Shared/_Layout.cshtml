@@ -12,14 +12,15 @@
 </head>
 <body>
     <header>
+        <p><a asp-page="./Index">Back to Homepage</a></p>
+        <h1> <a asp-page="./Cart">*bild på en shoppingvagn*  </a></h1>
         <environment names="Development">
             @await Component.InvokeAsync(nameof(FakeLoginMenu))
         </environment>
     </header>
     <main>
         @RenderBody()
-        <p><a asp-page="./Index">Back to Homepage</a></p>
-        <h1> <a asp-page="./Cart">*bild på en shoppingvagn*  </a></h1>
+        
     </main>
 </body>
 </html>

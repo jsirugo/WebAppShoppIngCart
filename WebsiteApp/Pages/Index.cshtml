@@ -8,18 +8,21 @@
 <h1>Welcome, @accessControl.LoggedInAccountName!</h1>
 
 <ul>
-    <!-- Sökformulär -->
-    <form method="get" asp-page-handler="Search">
-        <input type="text" name="searchTerm" placeholder="Sök efter namn">
-        <select name="category">
-            <option value="">Alla kategorier</option>
-            @foreach (var product in Model.Products)
-            {
-                <option value="@product.Category">@product.Category</option>
-            }
-        </select>
-        <button type="submit">Sök</button>
-    </form>
+    <!-- Search form -->
+    @if (Model.AllProducts != null)
+    {
+        <form method="get" asp-page="Index">
+            <input type="text" name="searchTerm" placeholder="Search">
+            <select name="category">
+                <option value="">All Categories</option>
+                @foreach (var category in Model.AllProducts.Select(p => p.Category).Distinct())
+                {
+                    <option value="@category">@category</option>
+                }
+            </select>
+            <button type="submit">Filter</button>
+        </form>
+    }
     @if (Model.Products != null)
     {
         @foreach (var product in Model.Products)
@@ -28,16 +31,44 @@
             <li>  <img src="images/@product.ImagePath" style="width: 200px" /></li>
             <li>
                 <form method="post" asp-page-handler="AddItemToCart">
-                    <input type="hidden" name="ProductId" value="@product.ID"/>
+                    <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
+                    <input type="hidden" name="category" value="@Model.Category" />
+                    <input type="hidden" name="page" value="@Model.PageNumber" />
+                    <input type="hidden" name="ProductId" value="@product.ID" />
                     <button type="submit">Add to cart</button>
+                </form>
+            </li>
+        }
+        <!-- Previous and Next buttons -->
+        @if (Model.ShowPreviousButton)
+        {
+            <li>
+                <form method="post" asp-page-handler="ChangePage">
+                    <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
+                    <input type="hidden" name="category" value="@Model.Category" />
+                    <input type="hidden" name="PageNumber" value="@Model.PageNumber" />
+                    <input type="hidden" name="pageNumber" value="@Model.PageNumber" />
+                    <button type="submit" name="previousButton">Previous</button>
+                </form>
+            </li>
+        }
+
+        @if (Model.ShowNextButton)
+        {
+            <li>
+                <form method="post" asp-page-handler="ChangePage">
+                    <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
+                    <input type="hidden" name="category" value="@Model.Category" />
+                    <input type="hidden" name="PageNumber" value="@Model.PageNumber" />
+                    <input type="hidden" name="pageNumber" value="@Model.PageNumber" />
+                    <button type="submit" name="nextButton">Next</button>
                 </form>
             </li>
         }
     }
     else
     {
-        <p>No products available.</p>
+        <p>No products found.</p>
     }
 
 </ul>
-

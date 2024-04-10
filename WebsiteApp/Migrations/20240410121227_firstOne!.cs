@@ -4,7 +4,7 @@
 
 namespace WebsiteApp.Migrations
 {
-    public partial class first : Migration
+    public partial class firstOne : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
