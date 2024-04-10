@@ -4,7 +4,7 @@
 
 namespace WebsiteApp.Migrations
 {
-    public partial class spaceboats3 : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

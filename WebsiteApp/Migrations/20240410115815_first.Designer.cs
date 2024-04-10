@@ -12,8 +12,8 @@ using WebsiteApp.Data;
 namespace WebsiteApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240405123025_spaceboats3")]
-    partial class spaceboats3
+    [Migration("20240410115815_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

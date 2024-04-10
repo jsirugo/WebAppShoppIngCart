@@ -7,8 +7,19 @@
 
 <h1>Welcome, @accessControl.LoggedInAccountName!</h1>
 
-<ul> 
-
+<ul>
+    <!-- Sökformulär -->
+    <form method="get" asp-page-handler="Search">
+        <input type="text" name="searchTerm" placeholder="Sök efter namn">
+        <select name="category">
+            <option value="">Alla kategorier</option>
+            @foreach (var product in Model.Products)
+            {
+                <option value="@product.Category">@product.Category</option>
+            }
+        </select>
+        <button type="submit">Sök</button>
+    </form>
     @if (Model.Products != null)
     {
         @foreach (var product in Model.Products)
@@ -17,7 +28,7 @@
             <li>  <img src="images/@product.ImagePath" style="width: 200px" /></li>
             <li>
                 <form method="post" asp-page-handler="AddItemToCart">
-                    <input type="hidden" name="ProductId" value="@product.ID" />
+                    <input type="hidden" name="ProductId" value="@product.ID"/>
                     <button type="submit">Add to cart</button>
                 </form>
             </li>
