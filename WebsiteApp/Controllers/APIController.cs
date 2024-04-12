@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebsiteApp.Data;
+using WebsiteApp.Models;
 
 namespace WebsiteApp.Controllers
 {
@@ -15,5 +16,6 @@ namespace WebsiteApp.Controllers
         {
             this.database = database;
         }
+        
     }
 }

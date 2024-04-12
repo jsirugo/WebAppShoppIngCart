@@ -1,6 +1,7 @@
 ﻿@page
 @model IndexModel
 @inject WebsiteApp.Data.AccessControl accessControl
+
 @{
     ViewData["Title"] = "Home page";
 }
@@ -8,11 +9,10 @@
 <h1>Welcome, @accessControl.LoggedInAccountName!</h1>
 
 <ul>
-    <!-- Search form -->
     @if (Model.AllProducts != null)
     {
-        <form method="get" asp-page="Index">
-            <input type="text" name="searchTerm" placeholder="Search">
+        <form method="get" asp-page="/Index">
+            <input type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search">
             <select name="category">
                 <option value="">All Categories</option>
                 @foreach (var category in Model.AllProducts.Select(p => p.Category).Distinct())
@@ -23,17 +23,21 @@
             <button type="submit">Filter</button>
         </form>
     }
+
     @if (Model.Products != null)
     {
         @foreach (var product in Model.Products)
         {
-            <li>  <img src="images/@product.ImagePath" style="width: 200px" /></li>
             <li>
                 <a asp-page="./ProductDetails" asp-route-id="@product.ID">
-                    @product.Name - @product.Price
+                    @product.Name - @product.Price 
                 </a>
             </li>
-           
+            <li>
+                 <a asp-page="./ProductDetails" asp-route-id="@product.ID">
+                <img src="images/@product.ImagePath" style="width: 200px" />
+                </a>
+            </li>
             <li>
                 <form method="post" asp-page-handler="AddItemToCart">
                     <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
@@ -44,16 +48,17 @@
                 </form>
             </li>
         }
-        <!-- Previous and Next buttons -->
+    }
+    else
+    {
+        <p>No products found.</p>
+    }
+    <ul class="pagination">
         @if (Model.ShowPreviousButton)
         {
             <li>
-                <form method="get" asp-page-handler="ChangePage">
-                    <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
-                    <input type="hidden" name="category" value="@Model.Category" />
-                    <input type="hidden" name="PageNumber" value="@Model.PageNumber" />
-                    <input type="hidden" name="pageNumber" value="@Model.PageNumber" />
-                    <button type="submit" name="previousButton">Previous</button>
+                <form method="get" asp-page="/Index">
+                    <button type="submit" class="btn btn-primary" name="currentPage" value="@(Model.PageNumber - 1)">Previous</button>
                 </form>
             </li>
         }
@@ -61,18 +66,22 @@
         @if (Model.ShowNextButton)
         {
             <li>
-                <form method="get" asp-page-handler="ChangePage">
-                    <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
-                    <input type="hidden" name="category" value="@Model.Category" />
-                    <input type="hidden" name="PageNumber" value="@(Math.Min(Model.PageNumber + 1, Model.TotalPages))" />
-                    <button type="submit" name="nextButton">Next</button>
+                <form method="get" asp-page="/Index">
+                    <button type="submit" class="btn btn-primary" name="currentPage" value="@(Model.PageNumber + 1)">Next</button>
                 </form>
             </li>
         }
-    }
-    else
-    {
-        <p>No products found.</p>
-    }
+        
 
+        @foreach (var pageNumber in Model.pageNumbers)
+        {
+            <li class="pagelinks">
+                <a asp-page="/Index" asp-route-currentPage="@pageNumber">
+                    Page: 
+                    @pageNumber
+                </a>
+            </li>
+        }
+    </ul>
 </ul>
+

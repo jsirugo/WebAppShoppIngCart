@@ -16,11 +16,14 @@ namespace WebsiteApp.Pages
 
         public List<Product> Products { get; set; }
         public List<Product> AllProducts { get; set; }
+        public List<int> pageNumbers { get; set; }
         public string SearchTerm { get; set; }
+
         public string Category { get; set; }
+        public int TotalPages { get; set; }
         public int PageNumber { get; set; } = 1; // Default to page 1
         public int PageSize { get; set; } = 10; // Default page size
-        public int TotalPages { get; private set; }
+
         public IndexModel(AppDbContext database, AccessControl accessControl)
         {
             this.database = database;
@@ -28,75 +31,42 @@ namespace WebsiteApp.Pages
             Products = new List<Product>();
         }
 
-        public void ShowProducts()
+        public void FetchProducts()
         {
             AllProducts = database.Products.ToList();
         }
-
-
-        public void OnGet(string searchTerm, string category, int pageNumber = 1)
+        public async Task OnGetAsync(int currentPage = 1, string searchTerm = null, string category = null)
         {
-            SearchTerm = searchTerm;
+            FetchProducts();
+            SearchTerm = searchTerm?.Trim(); // Trim leading/trailing whitespaces from searchTerm
             Category = category;
-            ShowProducts();
 
             IQueryable<Product> productsQuery = database.Products;
-            if (!string.IsNullOrEmpty(searchTerm))
+
+            if (!string.IsNullOrEmpty(SearchTerm))
             {
-                productsQuery = productsQuery.Where(p => p.Name.Contains(searchTerm));
+                productsQuery = productsQuery.Where(p => p.Name.ToLower().Contains(searchTerm.ToLower()));
             }
-            else if (!string.IsNullOrEmpty(category))
+
+            if (!string.IsNullOrEmpty(Category))
             {
                 productsQuery = productsQuery.Where(p => p.Category == category);
             }
 
-            int totalItems = productsQuery.Count();
-            TotalPages = (int)Math.Ceiling((double)totalItems / PageSize);
-            pageNumber = Math.Clamp(pageNumber, 1, TotalPages);
 
-            Products = productsQuery.Skip((pageNumber - 1) * PageSize).Take(PageSize).ToList();
+            var totalProductsCount = await productsQuery.CountAsync();
+            TotalPages = (int)Math.Ceiling(totalProductsCount / (double)PageSize);
+            PageNumber = currentPage;
+            pageNumbers = Enumerable.Range(1, TotalPages).ToList();
 
-            productsQuery = productsQuery.Where(p => (string.IsNullOrEmpty(searchTerm) || p.Name.Contains(searchTerm)) &&
-                                                         (string.IsNullOrEmpty(category) || p.Category == category));
-
-            Products = productsQuery.Skip((pageNumber - 1) * PageSize).Take(PageSize).ToList();
-
-            /* if (!string.IsNullOrEmpty(searchTerm))
-             {
-                 Products = Products.Where(p => p.Name.Contains(searchTerm)).ToList();
-             }
-             else if (!string.IsNullOrEmpty(category))
-             {
-                 Products = Products.Where(p => p.Category == category).ToList();
-             }
-             else
-             {
-                 Products = AllProducts;
-             }
-
-             int totalItems = Products.Count();
-
-             int skip = (pageNumber - 1) * PageSize;
-             Products = Products.Skip(skip).Take(PageSize).ToList();*/
-
+            Products = await productsQuery
+                .OrderBy(p => p.Name)
+                .Skip((currentPage - 1) * PageSize)
+                .Take(PageSize)
+                .ToListAsync();
         }
 
-        public IActionResult OnGetChangePage(string searchTerm, string category, int pageNumber)
-        {
-            if (Request.Form.ContainsKey("previousButton"))
-            {
-                if (pageNumber > 1)  
-                {
-                    pageNumber--;
-                }
-            }
-            else if (Request.Form.ContainsKey("nextButton"))
-            {
-                pageNumber++;
-            }
 
-            return RedirectToPage("/Index", new { searchTerm, category, pageNumber });
-        }
 
         public IActionResult OnPostAddItemToCart(int productId, string searchTerm, string category, int? page)
         {
@@ -129,6 +99,6 @@ namespace WebsiteApp.Pages
         }
 
         public bool ShowPreviousButton => PageNumber > 1;
-        public bool ShowNextButton => PageNumber < TotalPages;
+        public bool ShowNextButton => Products.Count == PageSize;
     }
 }
