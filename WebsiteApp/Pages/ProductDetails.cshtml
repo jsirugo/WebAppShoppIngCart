@@ -1,5 +1,31 @@
 ﻿@page
 @model WebsiteApp.Pages.ProductDetailsModel
 @{
-    <h1>Henlo fren!</h1>
+    ViewData["Title"] = "Product Details";
+}
+
+@if (Model.Product != null)
+{
+    <h1>@Model.Product.Name</h1>
+    @if (!string.IsNullOrEmpty(Model.Product.ImagePath))
+    {
+        <img src="~/images/@Model.Product.ImagePath" alt="@Model.Product.Name" style="max-width: 300px;">
+    }
+    else
+    {
+        <p>No image available</p>
+    }
+    <h2>Price: @Model.Product.Price</h2>
+    <p>Description: @Model.Product.Description</p>
+    <p>Category: @Model.Product.Category</p>
+
+    <form method="post" asp-page-handler="AddItemToCart">
+        <input type="hidden" name="ProductId" value="@Model.Product.ID" />
+        <button type="submit">Add to Cart</button>
+    </form>
+
+}
+else
+{
+    <p>Product not found.</p>
 }

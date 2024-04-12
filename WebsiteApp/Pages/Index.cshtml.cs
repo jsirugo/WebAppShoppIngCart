@@ -20,7 +20,7 @@ namespace WebsiteApp.Pages
         public string Category { get; set; }
         public int PageNumber { get; set; } = 1; // Default to page 1
         public int PageSize { get; set; } = 10; // Default page size
-
+        public int TotalPages { get; private set; }
         public IndexModel(AppDbContext database, AccessControl accessControl)
         {
             this.database = database;
@@ -33,15 +33,14 @@ namespace WebsiteApp.Pages
             AllProducts = database.Products.ToList();
         }
 
+
         public void OnGet(string searchTerm, string category, int pageNumber = 1)
         {
             SearchTerm = searchTerm;
             Category = category;
-
             ShowProducts();
 
             IQueryable<Product> productsQuery = database.Products;
-
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 productsQuery = productsQuery.Where(p => p.Name.Contains(searchTerm));
@@ -50,34 +49,39 @@ namespace WebsiteApp.Pages
             {
                 productsQuery = productsQuery.Where(p => p.Category == category);
             }
-          
+
             int totalItems = productsQuery.Count();
+            TotalPages = (int)Math.Ceiling((double)totalItems / PageSize);
+            pageNumber = Math.Clamp(pageNumber, 1, TotalPages);
 
-        
-            int skip = (pageNumber - 1) * PageSize;
-            Products = productsQuery.Skip(skip).Take(PageSize).ToList();
+            Products = productsQuery.Skip((pageNumber - 1) * PageSize).Take(PageSize).ToList();
 
-           /* if (!string.IsNullOrEmpty(searchTerm))
-            {
-                Products = Products.Where(p => p.Name.Contains(searchTerm)).ToList();
-            }
-            else if (!string.IsNullOrEmpty(category))
-            {
-                Products = Products.Where(p => p.Category == category).ToList();
-            }
-            else
-            {
-                Products = AllProducts;
-            }
+            productsQuery = productsQuery.Where(p => (string.IsNullOrEmpty(searchTerm) || p.Name.Contains(searchTerm)) &&
+                                                         (string.IsNullOrEmpty(category) || p.Category == category));
 
-            int totalItems = Products.Count();
+            Products = productsQuery.Skip((pageNumber - 1) * PageSize).Take(PageSize).ToList();
 
-            int skip = (pageNumber - 1) * PageSize;
-            Products = Products.Skip(skip).Take(PageSize).ToList();*/
+            /* if (!string.IsNullOrEmpty(searchTerm))
+             {
+                 Products = Products.Where(p => p.Name.Contains(searchTerm)).ToList();
+             }
+             else if (!string.IsNullOrEmpty(category))
+             {
+                 Products = Products.Where(p => p.Category == category).ToList();
+             }
+             else
+             {
+                 Products = AllProducts;
+             }
+
+             int totalItems = Products.Count();
+
+             int skip = (pageNumber - 1) * PageSize;
+             Products = Products.Skip(skip).Take(PageSize).ToList();*/
 
         }
 
-        public IActionResult OnPostChangePage(string searchTerm, string category, int pageNumber)
+        public IActionResult OnGetChangePage(string searchTerm, string category, int pageNumber)
         {
             if (Request.Form.ContainsKey("previousButton"))
             {
@@ -125,6 +129,6 @@ namespace WebsiteApp.Pages
         }
 
         public bool ShowPreviousButton => PageNumber > 1;
-        public bool ShowNextButton => Products.Count == PageSize;
+        public bool ShowNextButton => PageNumber < TotalPages;
     }
 }

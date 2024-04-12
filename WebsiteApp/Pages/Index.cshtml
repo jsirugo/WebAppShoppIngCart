@@ -27,8 +27,13 @@
     {
         @foreach (var product in Model.Products)
         {
-            <li>@product.Name - @product.Price</li>
             <li>  <img src="images/@product.ImagePath" style="width: 200px" /></li>
+            <li>
+                <a asp-page="./ProductDetails" asp-route-id="@product.ID">
+                    @product.Name - @product.Price
+                </a>
+            </li>
+           
             <li>
                 <form method="post" asp-page-handler="AddItemToCart">
                     <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
@@ -43,7 +48,7 @@
         @if (Model.ShowPreviousButton)
         {
             <li>
-                <form method="post" asp-page-handler="ChangePage">
+                <form method="get" asp-page-handler="ChangePage">
                     <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
                     <input type="hidden" name="category" value="@Model.Category" />
                     <input type="hidden" name="PageNumber" value="@Model.PageNumber" />
@@ -56,11 +61,10 @@
         @if (Model.ShowNextButton)
         {
             <li>
-                <form method="post" asp-page-handler="ChangePage">
+                <form method="get" asp-page-handler="ChangePage">
                     <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
                     <input type="hidden" name="category" value="@Model.Category" />
-                    <input type="hidden" name="PageNumber" value="@Model.PageNumber" />
-                    <input type="hidden" name="pageNumber" value="@Model.PageNumber" />
+                    <input type="hidden" name="PageNumber" value="@(Math.Min(Model.PageNumber + 1, Model.TotalPages))" />
                     <button type="submit" name="nextButton">Next</button>
                 </form>
             </li>

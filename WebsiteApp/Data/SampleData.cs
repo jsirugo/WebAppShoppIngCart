@@ -120,7 +120,7 @@ namespace WebsiteApp.Data
                     Name = "Haspelspö Deluxe",
                     Description = "Haspelspö för fiske av det mesta inom Svensk inomskärsfiske. Tål upp till 35 kilo fiskrackare",
                     Price = 1999,
-                    Category = "Fisekspö",
+                    Category = "Fiskespö",
                     ImagePath = "truerod.jpg"
                 });
                 database.Products.Add(new Product
@@ -134,7 +134,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Bambuflotte",
-                    Description = "Handgjord flotte efter konstens alla regler. Kan kräva eftermontage av fler knopar. Tål krokar",
+                    Description = "Handgjord flotte efter konstens alla regler. Kan kräva eftermontage av flera knopar samt mer tamp. Tål krokar",
                     Price = 99,
                     Category = "Fartyg",
                     ImagePath = "raft.jpg"
