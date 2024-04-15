@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +14,9 @@ namespace WebsiteApp.Pages
     {
         private readonly AppDbContext database;
         private readonly AccessControl accessControl;
-
+        private readonly IHttpClientFactory clientFactory;
         public List<Product> Products { get; set; }
-        public List<Product> AllProducts { get; set; }
+        public List<Product> AllProducts { get; set; } // då vi ej har ett eget bord för kategorier används alla produkter för att få fram kategorierna. Omständigt, kommer göras annorlunda nästa gång.
         public List<int> pageNumbers { get; set; }
         public string SearchTerm { get; set; }
 
@@ -24,49 +25,60 @@ namespace WebsiteApp.Pages
         public int PageNumber { get; set; } = 1; // Default to page 1
         public int PageSize { get; set; } = 10; // Default page size
 
-        public IndexModel(AppDbContext database, AccessControl accessControl)
+        public IndexModel(AppDbContext database, AccessControl accessControl, IHttpClientFactory clientFactory)
         {
             this.database = database;
             this.accessControl = accessControl;
+            this.clientFactory = clientFactory;
             Products = new List<Product>();
         }
 
         public void FetchProducts()
         {
-            AllProducts = database.Products.ToList();
+            AllProducts = database.Products.ToList(); //för att kunna visa kategorierna
         }
         public async Task OnGetAsync(int currentPage = 1, string searchTerm = null, string category = null)
         {
+            
             FetchProducts();
-            SearchTerm = searchTerm?.Trim(); // Trim leading/trailing whitespaces from searchTerm
+            SearchTerm = searchTerm?.Trim();
             Category = category;
 
-            IQueryable<Product> productsQuery = database.Products;
+          
+            var client = clientFactory.CreateClient();
+            var response = await client.GetAsync($"https://localhost:5000/api");
 
-            if (!string.IsNullOrEmpty(SearchTerm))
+            if (response.IsSuccessStatusCode)
             {
-                productsQuery = productsQuery.Where(p => p.Name.ToLower().Contains(searchTerm.ToLower()));
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var productsFromApi = JsonSerializer.Deserialize<List<Product>>(jsonString);
+
+                if (productsFromApi != null && productsFromApi.Any())
+                {  
+                    if (!string.IsNullOrEmpty(SearchTerm))
+                    {
+                        productsFromApi = productsFromApi.Where(p => p.Name.ToLower().Contains(SearchTerm.ToLower())).ToList();
+                    }
+
+                    if (!string.IsNullOrEmpty(Category))
+                    {
+                        productsFromApi = productsFromApi.Where(p => p.Category == Category).ToList();
+                    }
+
+                    Products = productsFromApi
+                        .OrderBy(p => p.Name)
+                        .Skip((currentPage - 1) * PageSize)
+                        .Take(PageSize)
+                        .ToList();
+
+                    var totalProductsCount = productsFromApi.Count;
+                    TotalPages = (int)Math.Ceiling(totalProductsCount / (double)PageSize);
+                    PageNumber = currentPage;
+                    pageNumbers = Enumerable.Range(1, TotalPages).ToList();
+                }
             }
 
-            if (!string.IsNullOrEmpty(Category))
-            {
-                productsQuery = productsQuery.Where(p => p.Category == category);
-            }
-
-
-            var totalProductsCount = await productsQuery.CountAsync();
-            TotalPages = (int)Math.Ceiling(totalProductsCount / (double)PageSize);
-            PageNumber = currentPage;
-            pageNumbers = Enumerable.Range(1, TotalPages).ToList();
-
-            Products = await productsQuery
-                .OrderBy(p => p.Name)
-                .Skip((currentPage - 1) * PageSize)
-                .Take(PageSize)
-                .ToListAsync();
         }
-
-
 
         public IActionResult OnPostAddItemToCart(int productId, string searchTerm, string category, int? page)
         {
@@ -95,7 +107,7 @@ namespace WebsiteApp.Pages
                 database.SaveChanges();
             }
 
-            return RedirectToPage("/Index", new { searchTerm, category, page });
+            return RedirectToPage("/Index", new { searchTerm, category, currentPage = page });
         }
 
         public bool ShowPreviousButton => PageNumber > 1;

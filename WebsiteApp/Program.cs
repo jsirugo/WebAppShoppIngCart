@@ -3,16 +3,21 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System.Security.Claims;
+using System.Text.Json;
 using WebsiteApp.Data;
 using WebsiteApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = null; //fel json format annars
+});
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = "Google";
 })
+
 .AddCookie(options =>
 {
     // When a user logs in to Google for the first time, create a local account for that user in our database.
@@ -90,6 +95,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<AccessControl>();
+
+builder.Services.AddHttpClient(); //löser så det går med api
 
 var app = builder.Build();
 
