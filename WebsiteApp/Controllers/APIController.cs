@@ -7,7 +7,7 @@ using WebsiteApp.Models;
 
 namespace WebsiteApp.Controllers
 {
-    [Route("/api")]
+    [Route("/api/products")]
     [ApiController]
     [AllowAnonymous]
     public class APIController : ControllerBase
@@ -18,18 +18,48 @@ namespace WebsiteApp.Controllers
         {
             this.database = database;
         }
-     
-
+        public int PageNumber { get; set; } = 1; // Default to page 1
+        public int PageSize { get; set; } = 10;
+        public int TotalPages { get; set; }
         [HttpGet]
-        public List<Product> Products()
-        {
-            List<Product> products = database.Products.ToList();
 
-            
-            products = products.OrderBy(p => p.Name)
+        public ActionResult<IEnumerable<Product>> GetProducts(
+            int currentPage = 1,
+            string? searchTerm = null,
+            string? category = null,
+            int pageSize = 10)
+        {
+            IQueryable<Product> query = database.Products;
+
+           
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query.Where(p => p.Name.ToLower().Contains(searchTerm.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                query = query.Where(p => p.Category == category);
+            }
+
+            var totalProductsCount = query.Count();
+
+            var products = query
+                .OrderBy(p => p.Name)
+                .Skip((currentPage - 1) * pageSize)
+                .Take(pageSize)
                 .ToList();
 
-            return products;
+            var totalPages = (int)Math.Ceiling(totalProductsCount / (double)pageSize);
+
+            return Ok(new
+            {
+                Products = products,
+                TotalPages = totalPages,
+                PageNumber = currentPage
+            });
         }
     }
 }
+    
+

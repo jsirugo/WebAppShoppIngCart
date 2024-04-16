@@ -32,50 +32,34 @@ namespace WebsiteApp.Pages
             this.clientFactory = clientFactory;
             Products = new List<Product>();
         }
-
+        public class ProductsApiResponse
+        {
+            public List<Product> Products { get; set; }
+            public int TotalPages { get; set; }
+            public int PageNumber { get; set; }
+        }
         public void FetchProducts()
         {
             AllProducts = database.Products.ToList(); //för att kunna visa kategorierna
         }
         public async Task OnGetAsync(int currentPage = 1, string searchTerm = null, string category = null)
         {
-            
             FetchProducts();
             SearchTerm = searchTerm?.Trim();
             Category = category;
 
-          
             var client = clientFactory.CreateClient();
-            var response = await client.GetAsync($"https://localhost:5000/api");
+            var response = await client.GetAsync($"https://localhost:5000/api/products?currentPage={currentPage}&searchTerm={SearchTerm}&category={Category}");
 
             if (response.IsSuccessStatusCode)
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
-                var productsFromApi = JsonSerializer.Deserialize<List<Product>>(jsonString);
+                var result = JsonSerializer.Deserialize<ProductsApiResponse>(jsonString);
 
-                if (productsFromApi != null && productsFromApi.Any())
-                {  
-                    if (!string.IsNullOrEmpty(SearchTerm))
-                    {
-                        productsFromApi = productsFromApi.Where(p => p.Name.ToLower().Contains(SearchTerm.ToLower())).ToList();
-                    }
-
-                    if (!string.IsNullOrEmpty(Category))
-                    {
-                        productsFromApi = productsFromApi.Where(p => p.Category == Category).ToList();
-                    }
-
-                    Products = productsFromApi
-                        .OrderBy(p => p.Name)
-                        .Skip((currentPage - 1) * PageSize)
-                        .Take(PageSize)
-                        .ToList();
-
-                    var totalProductsCount = productsFromApi.Count;
-                    TotalPages = (int)Math.Ceiling(totalProductsCount / (double)PageSize);
-                    PageNumber = currentPage;
-                    pageNumbers = Enumerable.Range(1, TotalPages).ToList();
-                }
+                Products = result.Products;
+                TotalPages = result.TotalPages;
+                PageNumber = result.PageNumber;
+                pageNumbers = Enumerable.Range(1, TotalPages).ToList();
             }
 
         }
