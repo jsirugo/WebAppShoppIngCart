@@ -6,19 +6,21 @@
 
 @if (Model.Product != null)
 {
-    <h1>@Model.Product.Name</h1>
+    <h1 id="product-name-h1">@Model.Product.Name</h1>
     @if (!string.IsNullOrEmpty(Model.Product.ImagePath))
     {
-        <img src="~/images/@Model.Product.ImagePath" alt="@Model.Product.Name" style="max-width: 300px;">
+        <img src="~/images/@Model.Product.ImagePath" alt="@Model.Product.Name" style="max-width: 300px; padding: 20px ;">
     }
     else
     {
         <p>No image available</p>
     }
-    <h2>Price: @Model.Product.Price</h2>
-    <p>Description: @Model.Product.Description</p>
-    <p>Category: @Model.Product.Category</p>
+   
 
+   <span id="itemDescription"> <p>Description: @Model.Product.Description</p>
+        <p>Categori: @Model.Product.Category</p>
+    </span>
+    <h2 id="product-price">Pris: @Model.Product.Price</h2>
     <form method="post" asp-page-handler="AddItemToCart">
         <input type="hidden" name="ProductId" value="@Model.Product.ID" />
         <button type="submit">Add to Cart</button>

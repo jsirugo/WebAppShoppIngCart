@@ -1,10 +1,11 @@
 ﻿@using WebsiteApp.Models;
 @model IEnumerable<SelectListItem>;
-
-<form method="post" asp-page="/FakeLogin">
+<div class="fakeLogin-container">
+    <form method="post" asp-page="/FakeLogin" class="fakeLogin">
     <label>
         Log in as:
         <select asp-items="@Model" name="AccountID" id="account-id"></select>
     </label>
     <button type="submit">Log In</button>
 </form>
+</div>

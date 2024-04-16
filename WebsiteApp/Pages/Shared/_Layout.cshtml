@@ -13,14 +13,18 @@
 <body>
     <header>
         <p><a asp-page="./Index">Back to Homepage</a></p>
-        <h1> <a asp-page="./Cart">*bild på en shoppingvagn*  </a></h1>
+        <div class="header-things">
+            <h1><a asp-page="./Cart">🛒</a></h1>
+        </div>
         <environment names="Development">
             @await Component.InvokeAsync(nameof(FakeLoginMenu))
         </environment>
+       
     </header>
     <main>
+        <div class="index-body">
         @RenderBody()
-        
+        <div>
     </main>
 </body>
 </html>

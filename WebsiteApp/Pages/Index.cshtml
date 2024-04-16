@@ -5,12 +5,15 @@
 @{
     ViewData["Title"] = "Home page";
 }
-<div class="index-body">
-<h1>Welcome, @accessControl.LoggedInAccountName!</h1>
 
+    <div class="loggedInNameBox">
+      <h1>Welcome, @accessControl.LoggedInAccountName!</h1>
+    </div>
 
     @if (Model.AllProducts != null)
     {
+        <div class="filter-row">
+
         <form method="get" asp-page="/Index">
             <input type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search">
             <select name="category">
@@ -20,8 +23,9 @@
                     <option value="@category">@category</option>
                 }
             </select>
-            <button type="submit">Filter</button>
+            <button id="searchGlass" type="submit">🔎</button>
         </form>
+        </div>
     }
     <div class="all-item-box">
     @if (Model.Products != null)
@@ -33,10 +37,10 @@
                 <a asp-page="./ProductDetails" asp-route-id="@product.ID">
                 <h2 class="product-details">@product.Name</h2>
                 </a>
-                <span class="product-price">@product.Price sek</span>
                 <a asp-page="./ProductDetails" asp-route-id="@product.ID">
                     <img src="images/@product.ImagePath" class="product-img" />
                 </a>
+                <span class="product-price">@product.Price sek</span>
 
             <form method="post" asp-page-handler="AddItemToCart" >
                 <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
