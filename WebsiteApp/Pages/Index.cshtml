@@ -5,10 +5,10 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
+<div class="index-body">
 <h1>Welcome, @accessControl.LoggedInAccountName!</h1>
 
-<ul>
+
     @if (Model.AllProducts != null)
     {
         <form method="get" asp-page="/Index">
@@ -23,37 +23,36 @@
             <button type="submit">Filter</button>
         </form>
     }
-
+    <div class="all-item-box">
     @if (Model.Products != null)
     {
         @foreach (var product in Model.Products)
         {
-            <li>
+            <div class="item-box">
+        
                 <a asp-page="./ProductDetails" asp-route-id="@product.ID">
-                    @product.Name - @product.Price sek
+                <h2 class="product-details">@product.Name</h2>
                 </a>
-            </li>
-            <li>
+                <span class="product-price">@product.Price sek</span>
                 <a asp-page="./ProductDetails" asp-route-id="@product.ID">
-                    <img src="images/@product.ImagePath" style="width: 200px" />
+                    <img src="images/@product.ImagePath" class="product-img" />
                 </a>
-            </li>
-            <li>
-                <form method="post" asp-page-handler="AddItemToCart">
-                    <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
-                    <input type="hidden" name="category" value="@Model.Category" />
-                    <input type="hidden" name="page" value="@Model.PageNumber" />
-                    <input type="hidden" name="ProductId" value="@product.ID" />
-                    <button type="submit">Add to cart</button>
-                </form>
-            </li>
+
+            <form method="post" asp-page-handler="AddItemToCart" >
+                <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
+                <input type="hidden" name="category" value="@Model.Category" />
+                <input type="hidden" name="page" value="@Model.PageNumber" />
+                <input type="hidden" name="ProductId" value="@product.ID" />
+                <button class="item-box-button" type="submit">Add to cart</button>
+            </form>
+                
+           
+            </div>
         }
 
     }
-    else
-    {
-        <p>No products found.</p>
-    }
+</div>
+    
     <ul class="pagination">
         @if (Model.ShowPreviousButton)
         {
@@ -77,17 +76,7 @@
             </li>
         }
 
-         @*  @foreach (var pageNumber in Model.pageNumbers)
-        {
-            <li class="pagelinks">
-                <a asp-page="/Index"
-                   asp-route-currentPage="@pageNumber"
-                   asp-route-searchTerm="@Model.SearchTerm"
-                   asp-route-category="@Model.Category">
-                    Page: @pageNumber
-                </a>
-            </li> 
-        }  *@
+       
     </ul>
-</ul>
+</div>
 
