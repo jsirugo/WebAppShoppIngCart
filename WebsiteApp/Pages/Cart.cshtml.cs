@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using WebsiteApp.Data;
 using WebsiteApp.Models;
 
@@ -10,7 +12,9 @@ namespace WebsiteApp.Pages
     {
         private readonly AppDbContext _database;
         private readonly AccessControl _accessControl;
-        public List<CartItem> CartItems { get; set; }
+
+        public List<CartItem> CartItems { get; set; } = new List<CartItem>();
+
         public double TotalPrice { get; set; }
 
         public CartModel(AppDbContext database, AccessControl accessControl)
@@ -29,6 +33,7 @@ namespace WebsiteApp.Pages
 
             TotalPrice = CartItems.Sum(ci => ci.Product.Price * ci.Quantity);
         }
+
         public IActionResult OnPostRemoveItemFromCart(int productId)
         {
             var accountId = _accessControl.LoggedInAccountID;

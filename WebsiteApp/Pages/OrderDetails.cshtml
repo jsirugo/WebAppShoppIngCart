@@ -1,5 +1,17 @@
-﻿@page
+﻿
+@page
 @model WebsiteApp.Pages.OrderDetailsModel
 @{
     <h1>Summary of products</h1>
 }
+<p>Tack för din beställning!</p>
+
+@foreach (var item in Model.PurchasedItems)
+{
+        <p>@item.Product.Name - Antal: @item.Quantity - Pris per styck: @item.Product.Price</p>
+}
+        <p>@Model.TotalPrice kr</p>
+
+<a asp-page="./Index">
+    <button type="submit">Return to Main Page</button>
+</a>

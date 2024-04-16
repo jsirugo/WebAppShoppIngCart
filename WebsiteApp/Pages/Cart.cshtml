@@ -1,9 +1,5 @@
 ﻿@page
 @model WebsiteApp.Pages.CartModel
-@{
-}
-<h1>Cart Items</h1>
-
 @if (Model.CartItems.Any())
 {
     <ul>
@@ -19,9 +15,12 @@
         }
     </ul>
     <p>Total Price: @Model.TotalPrice kr</p>
+
+    <a  asp-page="./OrderDetails">
+        <button type="submit">Confirm Order</button>
+    </a>
 }
 else
 {
     <p>Your cart is empty.</p>
 }
-
