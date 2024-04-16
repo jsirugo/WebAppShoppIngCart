@@ -10,7 +10,11 @@
         @foreach (var item in Model.CartItems)
         {
             <li>
-                @item.Product.Name - Quantity: @item.Quantity - @item.Product.Price - total price: 
+                <p>@item.Product.Name - Quantity: @item.Quantity</p>
+                <form method="post" asp-page-handler="RemoveItemFromCart">
+                    <input type="hidden" name="productId" value="@item.ProductId" />
+                    <button type="submit">Remove</button>
+                </form>
             </li>
         }
     </ul>
@@ -20,3 +24,4 @@ else
 {
     <p>Your cart is empty.</p>
 }
+

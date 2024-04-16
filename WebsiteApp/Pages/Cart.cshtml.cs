@@ -29,6 +29,23 @@ namespace WebsiteApp.Pages
 
             TotalPrice = CartItems.Sum(ci => ci.Product.Price * ci.Quantity);
         }
+        public IActionResult OnPostRemoveItemFromCart(int productId)
+        {
+            var accountId = _accessControl.LoggedInAccountID;
+            var cart = _database.Carts.Include(c => c.CartItems).FirstOrDefault(c => c.AccountId == accountId);
+
+            if (cart != null)
+            {
+                var itemToRemove = cart.CartItems.FirstOrDefault(ci => ci.ProductId == productId);
+                if (itemToRemove != null)
+                {
+                    cart.CartItems.Remove(itemToRemove);
+                    _database.SaveChanges();
+                }
+            }
+
+            return RedirectToPage("/Cart");
+        }
 
         public void OnGet()
         {
