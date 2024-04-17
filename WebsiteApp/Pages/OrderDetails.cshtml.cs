@@ -12,9 +12,7 @@ namespace WebsiteApp.Pages
     {
         private readonly AppDbContext _database;
         private readonly AccessControl _accessControl;
-
         public List<CartItem> CartItems { get; set; } = new List<CartItem>();
-        public List<CartItem> PurchasedItems { get; set; } = new List<CartItem>();
         public double TotalPrice { get; set; }
 
         public OrderDetailsModel(AppDbContext database, AccessControl accessControl)
@@ -22,7 +20,6 @@ namespace WebsiteApp.Pages
             _database = database;
             _accessControl = accessControl;
         }
-
         private void Setup()
         {
             var accountId = _accessControl.LoggedInAccountID;
@@ -31,14 +28,24 @@ namespace WebsiteApp.Pages
                 .Where(ci => ci.Cart.AccountId == accountId)
                 .ToList();
 
-            TotalPrice = CartItems.Sum(ci => ci.Product.Price * ci.Quantity);
-            PurchasedItems = CartItems;
+            TotalPrice = CartItems.Sum(ci => ci.Product.Price * ci.Quantity);   
         }
-
-
         public void OnGet()
         {
             Setup();
+        }
+        public IActionResult OnPostRemoveAllItems()
+        {
+            var accountId = _accessControl.LoggedInAccountID;
+            var cart = _database.Carts.Include(c => c.CartItems).FirstOrDefault(c => c.AccountId == accountId);
+
+            if (cart != null)
+            {
+                cart.CartItems.Clear();
+                _database.SaveChanges();
+
+            }
+            return RedirectToPage("/Index");
         }
         public IActionResult OnGetRemoveItems(List<CartItem> CartItems)
         {

@@ -6,12 +6,13 @@
 }
 <p>Tack för din beställning!</p>
 
-@foreach (var item in Model.PurchasedItems)
+@foreach (var item in Model.CartItems)
 {
         <p>@item.Product.Name - Antal: @item.Quantity - Pris per styck: @item.Product.Price</p>
 }
         <p>@Model.TotalPrice kr</p>
 
-<a asp-page="./Index">
-    <button type="submit">Return to Main Page</button>
-</a>
+
+<form method="post" asp-page-handler="RemoveAllItems">
+    <button type="submit">Return to MainPage</button>
+</form>
