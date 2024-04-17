@@ -11,8 +11,13 @@
     @await RenderSectionAsync("Scripts", required: false)
 </head>
 <body>
+    <a asp-page="./Index">
+        <img src="images/logga.png" id="logga" />
+    </a>
     <header>
-        <p><a asp-page="./Index">Back to Homepage</a></p>
+
+        
+        
         
         <environment names="Development">
             @await Component.InvokeAsync(nameof(FakeLoginMenu))

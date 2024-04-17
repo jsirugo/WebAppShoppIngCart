@@ -16,7 +16,7 @@ namespace WebsiteApp.Pages
         private readonly AccessControl accessControl;
         private readonly IHttpClientFactory clientFactory;
         public List<Product> Products { get; set; }
-        public List<Product> AllProducts { get; set; } // då vi ej har ett eget bord för kategorier används alla produkter för att få fram kategorierna. Omständigt, kommer göras annorlunda nästa gång.
+        public List<Product> AllProducts { get; set; } 
         public List<int> pageNumbers { get; set; }
         public string SearchTerm { get; set; }
 
@@ -39,10 +39,12 @@ namespace WebsiteApp.Pages
             public int PageNumber { get; set; }
 
         }
-        
+        public bool ShowPreviousButton => PageNumber > 1;
+        public bool ShowNextButton => Products.Count == PageSize;
+
         public void FetchProducts()
         {
-            AllProducts = database.Products.ToList(); //för att kunna visa kategorierna
+            AllProducts = database.Products.ToList(); //för att kunna visa kategorierna(väl medvetna om att detta inte håller i riktig databas)
         }
         public async Task OnGetAsync(int currentPage = 1, string searchTerm = null, string category = null)
         {
@@ -51,11 +53,11 @@ namespace WebsiteApp.Pages
             Category = category;
 
             var client = clientFactory.CreateClient();
-            var response = await client.GetAsync($"https://localhost:5000/api/products?currentPage={currentPage}&searchTerm={SearchTerm}&category={Category}");
+            var response = await client.GetAsync($"https://localhost:5000/api/products?currentPage={currentPage}&searchTerm={SearchTerm}&category={Category}");  //apí
 
             if (response.IsSuccessStatusCode)
             {
-                var jsonString = await response.Content.ReadAsStringAsync();
+                var jsonString = await response.Content.ReadAsStringAsync(); // läser av json
                 var result = JsonSerializer.Deserialize<ProductsApiResponse>(jsonString);
 
                 Products = result.Products;
@@ -96,7 +98,6 @@ namespace WebsiteApp.Pages
             return RedirectToPage("/Index", new { searchTerm, category, currentPage = page });
         }
 
-        public bool ShowPreviousButton => PageNumber > 1;
-        public bool ShowNextButton => Products.Count == PageSize;
+        
     }
 }

@@ -28,7 +28,8 @@ namespace WebsiteApp.Pages
                 .Where(ci => ci.Cart.AccountId == accountId)
                 .ToList();
 
-            TotalPrice = CartItems.Sum(ci => ci.Product.Price * ci.Quantity);   
+            TotalPrice = CartItems.Sum(ci => ci.Product.Price * ci.Quantity);
+            
         }
         public void OnGet()
         {

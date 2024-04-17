@@ -6,6 +6,7 @@
    <thead>
     <tr>
       <th scope="col">Product</th>
+        <th scope="col">Image</th>
       <th scope="col">Description</th>
       <th scope="col">Ammount</th>
       <th scope="col">Price</th>
@@ -18,7 +19,9 @@
             @foreach(var item in Model.CartItems)
             {
                 <tr>
+                    
                     <th scope="row">@item.Product.Name</th>
+                    <td> <img class ="CartImage"src ="images/@item.Product.ImagePath"/></td>
                     <td>@item.Product.Description</td>
                     <td>@item.Quantity</td>
                     <td>@item.Product.Price</td>
@@ -33,7 +36,7 @@
   </tbody>
   <tfoot>
     <tr>
-                <th scope="row" colspan="3">Total Price:</th>
+                <th scope="row" colspan="4">Total Price:</th>
                 <td> @Model.TotalPrice kr</td>
                 <th scope="row">Remove item ⬆</th>
     </tr>
