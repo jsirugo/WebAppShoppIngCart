@@ -13,11 +13,10 @@
 <body>
     <header>
         <p><a asp-page="./Index">Back to Homepage</a></p>
-        <div class="header-things">
-            <h1><a asp-page="./Cart">🛒</a></h1>
-        </div>
+        
         <environment names="Development">
             @await Component.InvokeAsync(nameof(FakeLoginMenu))
+
         </environment>
        
     </header>

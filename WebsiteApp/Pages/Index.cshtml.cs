@@ -37,7 +37,9 @@ namespace WebsiteApp.Pages
             public List<Product> Products { get; set; }
             public int TotalPages { get; set; }
             public int PageNumber { get; set; }
+
         }
+        
         public void FetchProducts()
         {
             AllProducts = database.Products.ToList(); //för att kunna visa kategorierna

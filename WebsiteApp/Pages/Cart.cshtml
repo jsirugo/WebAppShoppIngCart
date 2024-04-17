@@ -2,20 +2,46 @@
 @model WebsiteApp.Pages.CartModel
 @if (Model.CartItems.Any())
 {
-    <ul>
-        @foreach (var item in Model.CartItems)
-        {
-            <li>
-                <p>@item.Product.Name - Quantity: @item.Quantity</p>
-                <form method="post" asp-page-handler="RemoveItemFromCart">
-                    <input type="hidden" name="productId" value="@item.ProductId" />
-                    <button type="submit">Remove</button>
-                </form>
-            </li>
-        }
-    </ul>
-    <p>Total Price: @Model.TotalPrice kr</p>
+    <table>
+   <thead>
+    <tr>
+      <th scope="col">Product</th>
+      <th scope="col">Description</th>
+      <th scope="col">Ammount</th>
+      <th scope="col">Price</th>
+      <th scope="col">Remove item ⬇</th>
+     
+    </tr>
+  </thead>
+  <tbody>
 
+            @foreach(var item in Model.CartItems)
+            {
+                <tr>
+                    <th scope="row">@item.Product.Name</th>
+                    <td>@item.Product.Description</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Product.Price</td>
+                    <td>
+                        <form method="post" asp-page-handler="RemoveItemFromCart">
+                            <input type="hidden" name="productId" value="@item.ProductId" />
+                            <button type="submit">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+  </tbody>
+  <tfoot>
+    <tr>
+                <th scope="row" colspan="3">Total Price:</th>
+                <td> @Model.TotalPrice kr</td>
+                <th scope="row">Remove item ⬆</th>
+    </tr>
+  </tfoot>
+</table>
+    <form method="post" asp-page-handler="RemoveAllItems">
+        <button type="submit">Remove all items</button>
+    </form>
     <a  asp-page="./OrderDetails">
         <button type="submit">Confirm Order</button>
     </a>

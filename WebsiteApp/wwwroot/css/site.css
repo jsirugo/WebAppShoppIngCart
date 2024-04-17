@@ -9,7 +9,7 @@ a:link, a:visited, a:hover, a:active {
     text-decoration: none;
 }
 html {
-    background-color: rgb(228, 225, 228);
+    background: linear-gradient(90deg, #1CB5E0 0%, #000851 100%);
 }
 header{
     display:flex;
@@ -20,22 +20,24 @@ header{
     flex-wrap: wrap;
     justify-content: flex-end; 
     align-items: center;
+    margin-right:90px;
     
 }
-
-.fakeLogin {
+    .fakeLogin-container > h1 {
+        font-size: 45px;
+    }
+    .fakeLogin {
     display: flex;
     flex-direction: column;
     text-align: center;
-    background-color: #44c2e6;
+    background-color: #D6DAC8;
     width: fit-content;
     padding: 5px;
-    height: 50px;
+    height: fit-content;
     margin: 10px;
-    margin-right:50px;
     border-radius: 10px;
 }
-    .fakeLogin > label {
+.fakeLogin > label {
         align-items: center;
         margin-bottom: 4px;
         font-size: 16px;
@@ -44,31 +46,34 @@ header{
         padding: 1px;
        
     }
-    }
-    .fakeLogin > button {
-       
-        
-    }
-    .index-body {
-        display: flex;
-        flex-direction: column;
-        align-self: center;
-        justify-self: center;
-        align-items: center;
-        background-color: #b6e7f6;
-        border-radius: 10px;
-        margin: 0 auto;
-        width: 85vw;
-        box-shadow: 0 0 10px yellow;
-    }
-.loggedInNameBox{
-    margin:5px;
-    width:70%;
-    background-color:lightgreen;
-    text-align:center;
-    border-radius:10px;
+
+
+.index-body {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-self: center;
+    align-items: center;
+    background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%);
+    border-radius: 10px;
+    margin: 0 auto;
+    min-height:50vw;
+    width: 85vw;
+    box-shadow: 0 0 10px #EFBC9B;
 }
-.header-things {
+.loggedInNameBox {
+    
+    width: 100%;
+    background-color: #D6DAC8;
+    text-align: center;
+    border-radius: 10px;
+}
+    .loggedInNameBox > h1 {
+        color:rgb(10, 153, 34);
+        font-size: 40px
+       
+    }
+    .header-things {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -197,3 +202,50 @@ header{
     color:blue;
 }
 
+
+
+/*TABLE */
+
+table {
+    border-collapse: collapse;
+    border: 2px solid Green;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    margin:2rem;
+}
+
+caption {
+    caption-side: bottom;
+    padding: 10px;
+    font-weight: bold;
+}
+
+thead,
+tfoot {
+    background-color: rgb(228 240 245);
+}
+
+th,
+td {
+    border: 1px solid rgb(160 160 160);
+    padding: 8px 10px;
+}
+
+    td:last-of-type {
+        text-align: center;
+    }
+
+tbody > tr:nth-of-type(even) {
+    background-color: rgb(237 238 242);
+}
+tbody > tr:nth-of-type(odd) {
+    background-color: rgb(215, 215, 215);
+}
+
+tfoot th {
+    text-align: right;
+}
+
+tfoot td {
+    font-weight: bold;
+}

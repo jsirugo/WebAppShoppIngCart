@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System.Collections.Generic;
 using System.Linq;
 using WebsiteApp.Data;
@@ -49,6 +50,19 @@ namespace WebsiteApp.Pages
                 }
             }
 
+            return RedirectToPage("/Cart");
+        }
+        public IActionResult OnPostRemoveAllItems ()
+        {
+            var accountId = _accessControl.LoggedInAccountID;
+            var cart = _database.Carts.Include(c => c.CartItems).FirstOrDefault(c => c.AccountId == accountId);
+
+            if(cart != null)
+            {
+                   cart.CartItems.Clear();
+                    _database.SaveChanges();
+                
+            }
             return RedirectToPage("/Cart");
         }
 
