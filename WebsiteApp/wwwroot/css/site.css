@@ -33,11 +33,11 @@ header{
     .fakeLogin-container > h1 {
         font-size: 45px;
     }
-    .fakeLogin {
+.fakeLogin {
     display: flex;
     flex-direction: column;
     text-align: center;
-    background-color: darkgreen;
+    background-color: rgb(228 240 245);
     width: fit-content;
     padding: 5px;
     height: fit-content;
@@ -49,12 +49,30 @@ header{
         align-items: center;
         margin-bottom: 4px;
         font-size: 16px;
-        color: white;
+        color: black;
         font-weight: bold;
         padding: 1px;
        
     }
+.fakeLogin button{
+    width: fit-content;
+}
+li {
+    list-style-type: none;
+}
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
 
+.pagination {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 
 .index-body {
     display: flex;
@@ -65,22 +83,20 @@ header{
     background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%);
     border-radius: 10px;
     margin: 0 auto;
+    box-shadow: 0 0 10px #12d643;
    
     max-height:fit-content;
     width: 85vw;
-    box-shadow: 0 0 10px #EFBC9B;
 }
 .loggedInNameBox {
-    
     width: 100%;
-    background-color: #D6DAC8;
+    background-color: rgb(228 240 245);
     text-align: center;
     border-radius: 10px;
 }
     .loggedInNameBox > h1 {
-        color:rgb(10, 153, 34);
+        color:black;
         font-size: 40px
-       
     }
     .header-things {
     display: flex;
@@ -100,7 +116,7 @@ header{
     flex-direction:row;
     max-width:100%;
     justify-content:center;
-    align-ítems:center;
+    align-items:center;
 }
 .filter-row > form {
     align-items:center;
@@ -131,10 +147,15 @@ header{
     margin-top: 25px;
     gap: 30px;
 }
+
+.productDetails-img {
+    border-radius: 25px;
+    max-width: 250px; 
+    padding: 20px;
+}
 .product-img{
-    width:170px;
-    height:170px;
-    
+    width: 170px; 
+    height: 145px;
 }
 .item-box {
     display: flex;
@@ -142,7 +163,7 @@ header{
     align-items: center;
     width: 225px;
     height: 250px;
-    box-shadow: 0 0 6px black;
+    box-shadow: 0 0 6px rgb(155, 155, 155);
     border-radius: 5px;
     background-color: white;
     transition: all 0.2s ease;
@@ -158,33 +179,6 @@ header{
     align-items: center;
 
 }
-.item-box-button {
-    display: flex;
-    flex-direction: column;
-    align-self: center;
-    margin-top: 5px;
-    border: 1px solid green; 
-    border-radius: 10px;
-    height: 30px;
-    background-color: rgb(24, 126, 217); 
-    color: white; 
-    font-weight: bold; 
-    text-align: center; 
-    justify-content: center; 
-    cursor: pointer; 
-    transition: background-color 0.3s, color 0.3s; 
-}
-
-   
-    .item-box-button:hover {
-        background-color: rgb(0, 184, 255); 
-        color: lightblue; 
-    }
-.item-box .product-details {
-        color: black;
-        font-size: 16px;
-
-    }
 
 
 .product-price {
@@ -194,22 +188,28 @@ header{
     text-decoration:underline;
 }
 #product-price {
-    color: green;
+    color:navajowhite;
     font-size: 30px;
     font-weight: bold;
     text-decoration: underline;
 }
-#itemDescription{
-    background-color: rgb(194, 193, 193);
-
+#itemDescription {
+    background-color: rgb(228 240 245);
+    width: 90%;
+    border-radius: 10px;
 }
     #itemDescription > * {
         font-size: 18px;
         padding: 5px;
+        margin-left: 20px;
+        margin-right: 5px;
     }
-#product-name-h1{
-    color:blue;
+
+#product-name-h1 {
+    color: navajowhite;
+    margin-bottom: 0;
 }
+
 .CartImage{
     width:140px;
     height:140px;
@@ -258,4 +258,74 @@ tfoot th {
 
 tfoot td {
     font-weight: bold;
+}
+
+/* buttons */
+
+.return-home-btn{
+    background-color: bisque;
+
+}
+.item-box-button {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin-top: 5px;
+    height: 30px;
+    width: fit-content;
+    background-color: rgb(40, 195, 92); 
+    color: rgb(255, 255, 255); 
+    border: 1px solid green; 
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center; 
+    justify-content: center; 
+    cursor: pointer; 
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+   
+    .item-box-button:hover {
+        background-color: rgb(0, 184, 255); 
+        color: lightblue; 
+    }
+.item-box .product-details {
+        color: black;
+        font-size: 14px;
+    }
+.productDetails-box-button{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    text-align: center; 
+    justify-content: center; 
+    height: 38px;
+    margin: 20px;
+    padding: 25px;
+    width: 140px;
+    background-color: rgb(40, 195, 92); 
+    color: rgb(255, 255, 255); 
+    border: 1px solid green; 
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center; 
+}
+.nav-btn{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    text-align: center; 
+    justify-content: center; 
+    margin: 20px;
+    padding: 2px;
+    width: 80px;
+    background-color: rgb(232, 232, 232); 
+    color: rgb(7, 67, 146); 
+    border: 1px solid rgb(36, 209, 191); 
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center; 
 }

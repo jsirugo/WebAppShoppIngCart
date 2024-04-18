@@ -23,8 +23,8 @@
                     <th scope="row">@item.Product.Name</th>
                     <td> <img class ="CartImage"src ="images/@item.Product.ImagePath"/></td>
                     <td>@item.Product.Description</td>
-                    <td>@item.Quantity</td>
-                    <td>@item.Product.Price</td>
+                    <td>@item.Quantity st</td>
+                    <td>@item.Product.Price kr</td>
                     <td>
                         <form method="post" asp-page-handler="RemoveItemFromCart">
                             <input type="hidden" name="productId" value="@item.ProductId" />

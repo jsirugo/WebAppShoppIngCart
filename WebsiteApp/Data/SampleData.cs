@@ -44,7 +44,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Virgin SAAB 900",
-                    Description = "Vänd effektivt ditt mående på ända när du ser volvon susa förbi",
+                    Description = "Vänd effektivt ditt mående på ända när du ser volvon susa förbi i din underlägsna låda med hjul",
                     Price = 10,
                     Category = "900 bränn humör",
                     ImagePath = "saab900.jpg"
@@ -53,7 +53,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Betesfisk Gäddluraren 400",
-                    Description = "När du behöver en produkt som triggar jaktinstinkten hos fisken du är ute efter rekommenderas Gäddluraren. Versitil och med så många krokar att fisken enbart måste vara i närheten av draget för att fastna. Vikt 20 gram",
+                    Description = "När du behöver en produkt som triggar jaktinstinkten hos fisken du är ute efter rekommenderas Gäddluraren. Mångsidig och med så många krokar att fisken enbart måste vara i närheten av draget för att fastna. Vikt 20 gram",
                     Price = 159.46,
                     Category = "Bete",
                     ImagePath = "baitfish.jpg"
@@ -61,7 +61,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Metmask",
-                    Description = "Klassisk metmask. Kräver viss sadism för montering av bete, men mycket effektivt bete",
+                    Description = "Klassisk metmask. Kräver viss sadism för montering av bete, men är mycket effektiv som bete",
                     Price = 19.90,
                     Category = "Bete",
                     ImagePath = "baitworm.jpg"
@@ -69,7 +69,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "LurryMcFluffy spinnare",
-                    Description = "Enkel spinnare för lite större fisk. Funktionen av fluffet bak är okänt men det tycks lura fiskar. Vikt 10 gram",
+                    Description = "Enkel spinnare för lite större fisk. Funktionen av fluffet bak är okänt men det tycks locka till sig fisk. Vikt 10 gram",
                     Price = 41.49,
                     Category = "Bete",
                     ImagePath = "baitspin.jpg"
@@ -86,7 +86,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Piñata",
-                    Description = "När du tröttnat på småfångsten du dragit upp och vill satsa på lite större fisk, lägg över fångsten i denna och sikta mot stjärnorna. Vikt varierar beroende på din fyllnad men är hållbar upp till 250 kilo",
+                    Description = "När du tröttnat på småfångsten du dragit upp och vill satsa på lite större fisk, lägg över tidigare fångst i denna och sikta mot stjärnorna. Vikt varierar beroende på vad du fyller den med men den är hållbar upp till 250 kilo",
                     Price = 400,
                     Category = "Bete",
                     ImagePath = "baitpinata.jpg"
@@ -94,7 +94,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Rustikt metspö",
-                    Description = "Ett modest prissatt men utmärkt sammansatt metspö av ytterlig kvalité. Maxvikt för fångst okänt men håller för drag rakt nedåt upp till 5 kilo",
+                    Description = "Ett modest prissatt men utmärkt sammansatt metspö av ypperlig kvalité. Maxvikt för fångst okänt men håller för drag rakt nedåt upp till 5 kilo. Undvik hastiga ryck",
                     Price = 15,
                         Category = "Fiskespö",
                     ImagePath = "cheaprod.jpg"
@@ -102,7 +102,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Pimpelspö 9000",
-                    Description = "Ett enkelt pimpelfiskespö. Tänkt för småfångst",
+                    Description = "Ett enkelt pimpelfiskespö. Tänkt för småfisk",
                     Price = 199,
                     Category = "Fiskespö",
                     ImagePath = "pimpelfiske.jpg"
@@ -110,7 +110,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Metspö Extreme",
-                    Description = "Metspö, för metande av fisk",
+                    Description = "Metspö, för metande av fisk. Referens, Christoffer Robin",
                     Price = 311,
                     Category = "Fiskespö",
                     ImagePath = "meta.jpg"
@@ -134,7 +134,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Bambuflotte",
-                    Description = "Handgjord flotte efter konstens alla regler. Kan kräva eftermontage av flera knopar samt mer tamp. Tål krokar",
+                    Description = "Handgjord flotte efter konstens alla regler. Kan kräva eftermontage av flera knopar samt mer tamp beroende på vikt av användare. Tål krokar",
                     Price = 99,
                     Category = "Fartyg",
                     ImagePath = "raft.jpg"
@@ -166,7 +166,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Berkley Boatface With Tarp",
-                    Description = "Fiskefåtölj med många funktioner. Lådor överallt för drag, mat och fiskespön. Världsklass. Även med slittålig nylåninklädning",
+                    Description = "Fiskefåtölj med många funktioner. Lådor överallt för drag, mat och fiskespön. Världsklass. Även med slittålig nyloninklädning",
                     Price = 2800,
                     Category = "Fartyg",
                     ImagePath = "berkleyredwithtarp.jpg"
@@ -174,7 +174,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Kinetic camo",
-                    Description = "Om du har skam över din oerhörda fåtölj, välj denna med camouflage så du kanske undviker blickar",
+                    Description = "Om du har skam över din oerhörda fåtölj, välj denna med camouflage så du kanske undviker blickar. Lämpar sig väl för älgjakt på vatten",
                     Price = 3000,
                     Category = "Fartyg",
                     ImagePath = "kinetic.jpg"
@@ -182,7 +182,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Savage Floatboat",
-                    Description = "För den som vill ha en fåtölj med extra allt. Flyt rund med hela vardagsrummet om du vill. Förvaringsutrymme överallt och möjlighet att fästa utombordare",
+                    Description = "För den som vill ha en fiskefåtölj med extra allt. Flyt runt med hela vardagsrummet om du vill. Förvaringsutrymme överallt och möjlighet att fästa utombordare",
                     Price = 4999,
                     Category = "Fartyg",
                     ImagePath = "savage.jpg"
@@ -190,7 +190,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Showroom Floatboat",
-                    Description = "För den som har gett upp att faktiskt fiska men vill visa att det är ett intresse säljer vi denna fåtölj med montagemöjlighet. Låt din hobby vara i centrum, alltid",
+                    Description = "För den som har gett upp att faktiskt fiska men vill visa att det är ett intresse säljer vi denna fåtölj med montagemöjlighet. Låt din hobby vara i centrum, alltid. Även löstagbar för faktiskt fiske",
                     Price = 6899,
                     Category = "Fartyg",
                     ImagePath = "spaceage.jpg"
@@ -198,7 +198,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Orca fiskebåt",
-                    Description = "För när du behöver en större båt",
+                    Description = "För när du behöver en större båt. Visst slitage finns efter förra ägaren",
                     Price = 900000,
                     Category = "Fartyg",
                     ImagePath = "orca.jpg"
@@ -206,7 +206,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Trålarbåt von Båtsson",
-                    Description = "Trött på att inte få fisk? Se till att ingen annan får det heller med denna monstrositet. Förstör effektivt både habitat och fiskebestånd",
+                    Description = "Trött på att inte få fisk? Se till att ingen annan får det heller med denna monstrositet. Förstör effektivt både habitat och fiskebestånd i en tillfredställande hastighet",
                     Price = 14000000,
                     Category = "Fartyg",
                     ImagePath = "trawler.jpg"
@@ -214,7 +214,7 @@ namespace WebsiteApp.Data
                 database.Products.Add(new Product
                 {
                     Name = "Ubåt",
-                    Description = "Ta striden ner till fisken och ta hämnd på den där fisken du pratat om i 30 år som kom undan. Den och alla andra fiskar. För den som inte bryr sig så mycket om fångsten som jakten",
+                    Description = "Ta striden ner till fisken och ta hämnd på den som kom undan, samt upp till 400m radie runt sagda fisk. För den som inte bryr sig så mycket om fångsten som jakten",
                     Price = 100000000,
                     Category = "Fartyg",
                     ImagePath = "skipfishingboat.jpg"
