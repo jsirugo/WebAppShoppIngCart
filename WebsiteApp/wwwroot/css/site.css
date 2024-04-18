@@ -216,49 +216,6 @@ li {
     border-radius:8px;
 }
 /*TABLE */
-table {
-    border-collapse: collapse;
-    border: 2px solid Green;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    margin: 2rem;
-}
-
-caption {
-    caption-side: bottom;
-    padding: 10px;
-    font-weight: bold;
-}
-
-thead,
-tfoot {
-    background-color: rgb(228 240 245);
-}
-
-th,
-td {
-    border: 1px solid rgb(160 160 160);
-    padding: 8px 10px;
-}
-
-    td:last-of-type {
-        text-align: center;
-    }
-
-tbody > tr:nth-of-type(even) {
-    background-color: rgb(237 238 242);
-}
-tbody > tr:nth-of-type(odd) {
-    background-color: rgb(215, 215, 215);
-}
-
-tfoot th {
-    text-align: right;
-}
-
-tfoot td {
-    font-weight: bold;
-}
 
 /* buttons */
 
@@ -328,4 +285,71 @@ tfoot td {
     font-size: 12px;
     font-weight: bold;
     text-align: center; 
+}
+
+table {
+    border-collapse: collapse;
+    border: 2px solid Green;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    margin: 2rem;
+}
+
+caption {
+    caption-side: bottom;
+    padding: 10px;
+    font-weight: bold;
+}
+
+thead,
+tfoot {
+    background-color: rgb(228 240 245);
+}
+
+th,
+td {
+    border: 1px solid rgb(160 160 160);
+    padding: 8px 10px;
+    max-width:170px;
+}
+
+td:last-of-type {
+    text-align: center;
+}
+
+tbody > tr:nth-of-type(even) {
+    background-color: rgb(237 238 242);
+}
+tbody > tr:nth-of-type(odd) {
+    background-color: rgb(215, 215, 215);
+}
+
+tfoot th {
+    text-align: right;
+}
+
+tfoot td {
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+
+    table, thead, tbody, tfoot, th, td, tr {
+        display: block;
+        text-align: center;
+    }
+       tfoot >tr :last-child{
+           display:none;
+       }
+        thead tr {
+           display:none
+        }
+        tfoot th {
+            text-align: center;
+        }
+
+    tr {
+        border: 1px solid black;
+    }
+
 }
