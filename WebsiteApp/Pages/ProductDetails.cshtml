@@ -6,7 +6,7 @@
 
 @if (Model.Product != null)
 {
-    <h1 id="product-name-h1">@Model.Product.Name</h1>
+    <h1 class="h1-style">@Model.Product.Name</h1>
     @if (!string.IsNullOrEmpty(Model.Product.ImagePath))
     {
         <img class="productDetails-img" src="~/images/@Model.Product.ImagePath" alt="@Model.Product.Name">
@@ -20,7 +20,7 @@
    <span id="itemDescription"> <p>Beskrivning: @Model.Product.Description</p>
         <p>Kategori: @Model.Product.Category</p>
     </span>
-    //<h2 id="product-price">Pris: @Model.Product.Price</h2>
+   
     <form method="post" asp-page-handler="AddItemToCart">
         <input type="hidden" name="ProductId" value="@Model.Product.ID" />
         <button class="productDetails-box-button" type="submit">Lägg i kundvagn - @Model.Product.Price kr</button>

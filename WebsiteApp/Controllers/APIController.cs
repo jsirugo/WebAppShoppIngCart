@@ -49,7 +49,12 @@ namespace WebsiteApp.Controllers
                 .Skip((currentPage - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
+            var url =$"{Request.Scheme}://{Request.Host}";
 
+            foreach (var product in products)
+            {
+                product.ImagePath = $"{url}/Images/{product.ImagePath}";
+            }
             var totalPages = (int)Math.Ceiling(totalProductsCount / (double)pageSize);
 
             return Ok(new

@@ -38,7 +38,7 @@
                 <h2 class="product-details">@product.Name</h2>
                 </a>
                 <a asp-page="./ProductDetails" asp-route-id="@product.ID">
-                    <img src="images/@product.ImagePath" class="product-img" />
+                    <img src="@product.ImagePath" class="product-img" />
                 </a>
                 <span class="product-price">@product.Price sek</span>
 
