@@ -344,6 +344,10 @@ tfoot td {
     }
         tfoot th {
             text-align: center;
+            border:none;
+        }
+        tfoot td{
+            border:none;
         }
 
     tr {
