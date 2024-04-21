@@ -14,8 +14,9 @@
     {
         <div class="filter-row">
 
-        <form method="get" asp-page="/Index">
-            <input type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search">
+        <form method="get" asp-page="/Index" id="searchForm">
+            <label for="searchTerm">
+            <input type="text" name="searchTerm" id="searchTerm" value="@Model.SearchTerm" placeholder="Search">
             <select name="category">
                 <option value="">All Categories</option>
                 @foreach (var category in Model.AllProducts.Select(p => p.Category).Distinct())
@@ -24,6 +25,7 @@
                 }
             </select>
             <button id="searchGlass" type="submit">🔎</button>
+            </label>
         </form>
         </div>
     }
