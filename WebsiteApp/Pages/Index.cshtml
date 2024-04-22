@@ -6,83 +6,81 @@
     ViewData["Title"] = "Home page";
 }
 
-    <div class="loggedInNameBox">
-      <h1>Välkommen, @accessControl.LoggedInAccountName!</h1>
-    </div>
+<div class="loggedInNameBox">
+    <h1>Välkommen, @accessControl.LoggedInAccountName!</h1>
+</div>
 
-    @if (Model.AllProducts != null)
-    {
-        <div class="filter-row">
+@if (Model.AllProducts != null)
+{
+    <div class="filter-row">
 
         <form method="get" asp-page="/Index" id="searchForm">
             <label for="searchTerm">
-            <input type="text" name="searchTerm" id="searchTerm" value="@Model.SearchTerm" placeholder="Search">
-            <select name="category">
-                <option value="">All Categories</option>
-                @foreach (var category in Model.AllProducts.Select(p => p.Category).Distinct())
-                {
-                    <option value="@category">@category</option>
-                }
-            </select>
-            <button id="searchGlass" type="submit">🔎</button>
+                <input type="text" name="searchTerm" id="searchTerm" value="@Model.SearchTerm" placeholder="Search">
+                <select name="category">
+                    <option value="">All Categories</option>
+                    @foreach (var category in Model.AllProducts.Select(p => p.Category).Distinct())
+                    {
+                        <option value="@category">@category</option>
+                    }
+                </select>
+                <button id="searchGlass" type="submit">🔎</button>
             </label>
         </form>
-        </div>
-    }
-    <div class="all-item-box">
+    </div>
+}
+<div class="all-item-box">
     @if (Model.Products != null)
     {
         @foreach (var product in Model.Products)
         {
             <div class="item-box">
-        
                 <a asp-page="./ProductDetails" asp-route-id="@product.ID">
-                <h2 class="product-details">@product.Name</h2>
+                    <h2 class="product-details">@product.Name</h2>
                 </a>
                 <a asp-page="./ProductDetails" asp-route-id="@product.ID">
                     <img src="@product.ImagePath" class="product-img" />
                 </a>
                 <span class="product-price">@product.Price sek</span>
 
-            <form method="post" asp-page-handler="AddItemToCart" >
-                <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
-                <input type="hidden" name="category" value="@Model.Category" />
-                <input type="hidden" name="page" value="@Model.PageNumber" />
-                <input type="hidden" name="ProductId" value="@product.ID" />
-                <button class="item-box-button" type="submit">Add to cart</button>
-            </form>
-                
-           
+                <form method="post" asp-page-handler="AddItemToCart">
+                    <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
+                    <input type="hidden" name="category" value="@Model.Category" />
+                    <input type="hidden" name="page" value="@Model.PageNumber" />
+                    <input type="hidden" name="ProductId" value="@product.ID" />
+                    <button class="item-box-button" type="submit">Add to cart</button>
+                </form>
+
             </div>
         }
 
     }
 </div>
-    
-    <ul class="pagination">
-        @if (Model.ShowPreviousButton)
-        {
-            <li>
-                <form method="get" asp-page="/Index">
-                    <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
-                    <input type="hidden" name="category" value="@Model.Category" />
-                    <button type="submit" class="nav-btn" name="currentPage" value="@(Model.PageNumber - 1)">Previous</button>
-                </form>
-            </li>
-        }
 
-        @if (Model.ShowNextButton)
-        {
-            <li>
-                <form method="get" asp-page="/Index">
-                    <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
-                    <input type="hidden" name="category" value="@Model.Category" />
-                    <button type="submit" class="nav-btn" name="currentPage" value="@(Model.PageNumber + 1)">Next</button>
-                </form>
-            </li>
-        }
+<ul class="pagination">
+    @if (Model.ShowPreviousButton)
+    {
+        <li>
+            <form method="get" asp-page="/Index">
+                <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
+                <input type="hidden" name="category" value="@Model.Category" />
+                <button type="submit" class="nav-btn" name="currentPage" value="@(Model.PageNumber - 1)">Previous</button>
+            </form>
+        </li>
+    }
 
-       
-    </ul>
+    @if (Model.ShowNextButton)
+    {
+        <li>
+            <form method="get" asp-page="/Index">
+                <input type="hidden" name="searchTerm" value="@Model.SearchTerm" />
+                <input type="hidden" name="category" value="@Model.Category" />
+                <button type="submit" class="nav-btn" name="currentPage" value="@(Model.PageNumber + 1)">Next</button>
+            </form>
+        </li>
+    }
+
+
+</ul>
 </div>
 

@@ -52,16 +52,16 @@ namespace WebsiteApp.Pages
 
             return RedirectToPage("/Cart");
         }
-        public IActionResult OnPostRemoveAllItems ()
+        public IActionResult OnPostRemoveAllItems()
         {
             var accountId = _accessControl.LoggedInAccountID;
             var cart = _database.Carts.Include(c => c.CartItems).FirstOrDefault(c => c.AccountId == accountId);
 
-            if(cart != null)
+            if (cart != null)
             {
-                   cart.CartItems.Clear();
-                    _database.SaveChanges();
-                
+                cart.CartItems.Clear();
+                _database.SaveChanges();
+
             }
             return RedirectToPage("/Cart");
         }

@@ -3,25 +3,25 @@
 @if (Model.CartItems.Any())
 {
     <table>
-   <thead>
-    <tr>
-      <th scope="col">Product</th>
-        <th scope="col">Image</th>
-      <th scope="col">Description</th>
-      <th scope="col">Ammount</th>
-      <th scope="col">Price</th>
-      <th class="remove-item-tbl" scope="col">Remove item ⬇</th>
-     
-    </tr>
-  </thead>
-  <tbody>
+        <thead>
+            <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Image</th>
+                <th scope="col">Description</th>
+                <th scope="col">Ammount</th>
+                <th scope="col">Price</th>
+                <th class="remove-item-tbl" scope="col">Remove item ⬇</th>
 
-            @foreach(var item in Model.CartItems)
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.CartItems)
             {
                 <tr>
-                    
+
                     <th scope="row">@item.Product.Name</th>
-                    <td class="table-img"> <img class ="CartImage"src ="images/@item.Product.ImagePath"/></td>
+                    <td class="table-img"> <img class="CartImage" src="images/@item.Product.ImagePath" /></td>
                     <td>@item.Product.Description</td>
                     <td>@item.Quantity st</td>
                     <td>@item.Product.Price kr</td>
@@ -33,19 +33,19 @@
                     </td>
                 </tr>
             }
-  </tbody>
-  <tfoot>
-    <tr>
+        </tbody>
+        <tfoot>
+            <tr>
                 <th scope="row" colspan="4">Total Price:</th>
                 <td> @Model.TotalPrice kr</td>
                 <th class="remove-item-tbl" scope="row">Remove item ⬆</th>
-    </tr>
-  </tfoot>
-</table>
+            </tr>
+        </tfoot>
+    </table>
     <form method="post" asp-page-handler="RemoveAllItems">
         <button class="nav-btn" type="submit">Remove all items</button>
     </form>
-    <a  asp-page="./OrderDetails">
+    <a asp-page="./OrderDetails">
         <button class="nav-btn" type="submit">Confirm Order</button>
     </a>
 }
